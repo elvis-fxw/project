@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"></meta>
+    <title>歌曲列表</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="/css/footer.css"></link>
+    <!--轮播样式-->
+    <link rel="stylesheet" href="css/slide.css"></link>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/slide.js"></script>
+    <style>
+        .ck-slide {
+            width:700px;
+            height:320px;
+        }
+        .ck-slide ul.ck-slide-wrapper {
+            height:320px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand">吉他谱列表(共<span th:text="${gtps.totalElements}"></span>首歌曲)</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="width:800px;margin-top:50px;margin:0px auto">
+    <div class="row">
+        <div class="col-sm-11">
+            <div class="blog-post">
+                <span class="col-sm-8"></span>
+            </div>
+            <h3><a>热门吉他谱</a></h3>
+
+
+            <!--轮播-->
+            <div class="ck-slide">
+                <ul class="ck-slide-wrapper">
+                    <li>
+                        <a href="#"><img src="http://p4.music.126.net/0w_Ij-j6QJ1dfLX1WhM1MA==/18533367999666274.jpg" alt="" style="width:700px;"></img></a>
+                    </li>
+                    <li style="display:none">
+                        <a href="#"><img src="images/guitar.jpg" alt="" style="width:700px;"></img></a>
+                    </li>
+                    <li style="display:none">
+                        <a href="javascript:;"><img src="images/music.jpg" alt="" style="width:700px;"></img></a>
+                    </li>
+                </ul>
+                <a href="javascript:;" class="ctrl-slide ck-prev">上一张</a>
+                <a href="javascript:;" class="ctrl-slide ck-next">下一张</a>
+                <div class="ck-slidebox">
+                    <div class="slideWrap">
+                        <ul class="dot-wrap">
+                            <li class="current"><em>1</em></li>
+                            <li><em>2</em></li>
+                            <li><em>3</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $('.ck-slide').ckSlide({
+                    autoPlay:true
+                    /*dir:"x"*/
+                });
+            </script>
+
+            <!--菜单-->
+            <ul class="nav nav-tabs">
+                <li>
+                    <a href="http://localhost:8080/comments">热门评论</a>
+                </li>
+                <li class="active">
+                    <a href="http://localhost:8080/gtp">热门吉他谱</a>
+                </li>
+                <li>
+                    <a href="http://localhost:8080/songs">评论数排行</a>
+                </li>
+            </ul>
+
+            <!--百度分享-->
+            <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+            <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"分享自HotMusic","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["weixin","qzone","tsina","evernotecn"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","qzone","tsina","evernotecn"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+            <!--<table class="table">
+                <thead>
+                <tr>
+                    <th>歌曲</th>
+                    <th>评论数</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="gtp: ${gtps.content}">
+                    <td ><a th:href="@{${gtp.url}}" target="_blank">
+                        <div class="col-sm-6 col-md-3">
+                            <a th:href="${gtp.imgUrl}" class="thumbnail">
+                                <img th:src="${gtp.imgUrl}"></img>
+                            </a>
+                        </div>
+                        &lt;!&ndash;<img th:src="${gtp.imgUrl}"></img>
+                        <span th:text="${gtp.title}"></span>&ndash;&gt;
+                    </a></td>
+                    <td th:text="${gtp.title}"></td>
+                </tr>
+                </tbody>
+            </table>-->
+            <div class="row">
+                <div class="col-sm-6 col-md-3" th:each="gtp: ${gtps.content}">
+                    <div class="thumbnail" style="height: 350px">
+                        <a th:href="${gtp.saveAddress}" class="thumbnail">
+                            <img th:src="${gtp.saveAddress}" style="width:200px;height: 200px"></img>
+                        </a>
+                        <div class="caption">
+                            <p th:text="${gtp.title}" style="vertical-align: middle;text-align: center"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr></hr>
+            <nav>
+                <ul class="pager">
+                    <li th:unless="${gtps.first}" class="previous"><a th:href="@{'/songs' + '?page=' + ${gtps.number - 1}}">上一页<span aria-hidden="true">&larr;</span></a></li>
+                    <li th:unless="${gtps.last}" class="next"><a th:href="@{'/songs' + '?page=' + ${gtps.number + 1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<footer>
+    &copy; 2017 黄方维
+</footer>
+</body>
+</html>

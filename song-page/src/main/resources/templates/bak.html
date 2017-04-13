@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"></meta>
+    <title>歌曲列表</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="/css/footer.css"></link>
+    <!--轮播样式-->
+    <link rel="stylesheet" href="css/slide.css"></link>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/slide.js"></script>
+    <style>
+        .ck-slide {
+            width:700px;
+            height:320px;
+        }
+        .ck-slide ul.ck-slide-wrapper {
+            height:320px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="https://www.tianmaying.com/tutorial/music-163-crawler">网易云音乐歌曲列表(共<span th:text="${comments.totalElements}"></span>首歌曲)</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="width:800px;margin-top:50px;margin:0px auto">
+    <div class="row">
+        <div class="col-sm-11">
+
+            <!--轮播-->
+            <div class="ck-slide">
+                <ul class="ck-slide-wrapper">
+                    <li>
+                        <a href="#"><img src="http://p4.music.126.net/0w_Ij-j6QJ1dfLX1WhM1MA==/18533367999666274.jpg" alt="" style="width:700px;"></img></a>
+                    </li>
+                    <li style="display:none">
+                        <a href="#"><img src="images/guitar.jpg" alt="" style="width:700px;"></img></a>
+                    </li>
+                    <li style="display:none">
+                        <a href="javascript:;"><img src="images/music.jpg" alt="" style="width:700px;"></img></a>
+                    </li>
+                </ul>
+                <a href="javascript:;" class="ctrl-slide ck-prev">上一张</a>
+                <a href="javascript:;" class="ctrl-slide ck-next">下一张</a>
+                <div class="ck-slidebox">
+                    <div class="slideWrap">
+                        <ul class="dot-wrap">
+                            <li class="current"><em>1</em></li>
+                            <li><em>2</em></li>
+                            <li><em>3</em></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $('.ck-slide').ckSlide({
+                    autoPlay:true
+                    /*dir:"x"*/
+                });
+            </script>
+
+            <!--菜单-->
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="http://localhost:8080/comments">热门评论</a>
+                </li>
+                <li>
+                    <a href="http://localhost:8080/gtp">热门吉他谱</a>
+                </li>
+                <li>
+                    <a href="http://localhost:8080/songs">评论数排行</a>
+                </li>
+            </ul>
+
+            <div class="blog-post">
+                <span class="col-sm-8"></span>
+            </div>
+            <h3>热门音乐评论</h3>
+
+            <!--百度分享-->
+            <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+            <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"分享自HotMusic","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["weixin","qzone","tsina","evernotecn"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","qzone","tsina","evernotecn"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th style="text-align: center">歌曲</th>
+                    <th style="text-align: center">热门评论</th>
+                    <th style="text-align: center">点赞数</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="comment: ${comments.content}" style="vertical-align: 50%">
+                    <td style="width:120px;text-align: center">
+                        <a th:href="@{${comment.url}}" target="_blank">
+                            <img id="j-img" class="img-circle" th:src="${comment.imgUrl}"></img>
+                            <span th:text="${comment.title}" ></span>
+                        </a></td>
+                    <td th:text="${comment.content}" style="vertical-align: middle"></td>
+                    <td style="width:80px;vertical-align: middle;text-align: center" th:text="${comment.appreciation}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!--<div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <div class="row-fluid" th:each="comment: ${comments.content}" style="width:200px;margin: 20px">
+                            <div class="span2" style="float: left">
+                                <img alt="100x100" src="http://p3.music.126.net/Zyji-kiWpjLF19CF0yHSlg==/1727332767246198.jpg?param=130y130" class="img-circle" />
+                                <p th:text="${comment.title}"></p>
+                                &lt;!&ndash;<p th:text="${comment.content}"></p>
+                                <p>
+                                    <a class="btn" href="#">查看评论 »</a>
+                                </p>&ndash;&gt;
+                            </div>
+                            <div class="span10" style="float:right">
+                                &lt;!&ndash;<h2 th:text="${comment.title}"></h2>&ndash;&gt;
+                                <p th:text="${comment.content}"></p>
+                                <p>
+                                    <a class="btn" href="#">查看评论 »</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+
+            <!--<div class="container">
+                <div class="row" th:each="comment: ${comments.content}">
+                    <div class="span3">
+                        <img alt="140x140" src="http://p3.music.126.net/Zyji-kiWpjLF19CF0yHSlg==/1727332767246198.jpg?param=130y130" class="img-circle" />
+                        <h2 th:text="${comment.title}"></h2>
+                        <p th:text="${comment.content}"></p>
+                        <p>
+                            <a class="btn" href="#">查看更多 »</a>
+                        </p>
+                    </div>
+                    <div class="span9">
+
+                    </div>
+                </div>
+            </div>-->
+
+            <hr></hr>
+            <nav>
+                <ul class="pager">
+                    <li th:unless="${comments.first}" class="previous"><a th:href="@{'/comments' + '?page=' + ${comments.number - 1}}">上一页<span aria-hidden="true">&larr;</span></a></li>
+                    <li th:unless="${comments.last}" class="next"><a th:href="@{'/comments' + '?page=' + ${comments.number + 1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<footer>
+    &copy; 2017 黄方维
+</footer>
+</body>
+</html>
