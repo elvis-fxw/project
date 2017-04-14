@@ -7,6 +7,7 @@ import com.huangfw.crawler.repository.GtpRepository;
 import com.huangfw.crawler.repository.MusicCommentRepository;
 import com.huangfw.crawler.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -51,11 +52,11 @@ public class SongController {
         return "gtp";
     }
 
-    @RequestMapping(value="/search",method= RequestMethod.POST)
+    @RequestMapping(value="/search.do",method= RequestMethod.POST)
     public String search(@ModelAttribute(value="message") Message message,Model model,
                          @PageableDefault(size = 30, sort = "appreciation", direction = Sort.Direction.DESC) Pageable pageable){
-        System.out.println(message.getInfo());
-        model.addAttribute("comments",musicCommentRepository.findAllByTitle(message.getInfo(),pageable));
+        model.addAttribute("comments",musicCommentRepository.findAllByTitleLike("%"+message.getInfo()+"%",pageable));
+        //model.addAttribute("comments",musicCommentRepository.findAllByTitleMatches(message.getInfo(),pageable));
         return "comments";
     }
 }
