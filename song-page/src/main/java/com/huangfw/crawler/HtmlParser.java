@@ -186,6 +186,9 @@ public class HtmlParser {
         musicCommentMessage.setSongTitle(title);
         musicCommentMessage.setSongUrl(songUrl);
         musicCommentMessage.setCommentCount(commentCount);
+        /*图片来源*/
+        musicCommentMessage.setImgSrcUrl(imgSrcUrl);
+        musicCommentMessage.setImgUrl(imgUrl);
 
         List<MusicComment> ls = new ArrayList<MusicComment>();
 

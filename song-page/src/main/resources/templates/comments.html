@@ -68,7 +68,7 @@
             </script>
 
             <!--菜单-->
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs" style="margin-top: 10px">
                 <li>
                     <a href="http://localhost:8080/recommend">热门歌曲推荐</a>
                 </li>
@@ -89,6 +89,7 @@
             <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
             <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"分享自HotMusic","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["weixin","qzone","tsina","evernotecn"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","qzone","tsina","evernotecn"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
+            <!--搜索框-->
             <form class="form-search" action="#" th:action="@{/search.do}" th:object="${message}" method="post">
                 <input class="input-medium search-query" type="text" th:field="*{info}"/> <button type="submit" class="btn">查找</button>
             </form>

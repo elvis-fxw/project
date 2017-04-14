@@ -13,6 +13,10 @@ public class MusicCommentMessage {
 
     private int commentCount;
 
+    String imgUrl;
+
+    String imgSrcUrl;
+
     //评论
     private List<MusicComment> comments = new ArrayList<MusicComment>();
 
@@ -23,6 +27,22 @@ public class MusicCommentMessage {
         this.songUrl = songUrl;
         this.commentCount = commentCount;
         this.comments = comments;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getImgSrcUrl() {
+        return imgSrcUrl;
+    }
+
+    public void setImgSrcUrl(String imgSrcUrl) {
+        this.imgSrcUrl = imgSrcUrl;
     }
 
     public String getSongTitle() {

@@ -53,8 +53,14 @@ public class MultiCrawlerThread implements Runnable {
                 /*获取评论和点赞数*/
                 int appreciationSum = 0;
                 int commentPeopleCount = 0;
+                String imgUrl = new String();
+                String imgSrcUrl = new String();
                 try {
                     MusicCommentMessage mcm = htmlParser.parseCommentMessage(webPage.getTitle(),webPage.getUrl());
+                    /*得到歌曲图片*/
+                    imgUrl = mcm.getImgUrl();
+                    imgSrcUrl = mcm.getImgSrcUrl();
+
                     List<MusicComment> mc = mcm.getComments();
                     /*热评人数*/
                     commentPeopleCount = mc.size();
@@ -75,7 +81,8 @@ public class MultiCrawlerThread implements Runnable {
                     BigDecimal bg = new BigDecimal(averageAppreciation);
                     recommendValue = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                 }
-                Song song = new Song(webPage.getUrl(), webPage.getTitle(), htmlParser.parseSong(webPage.getUrl()),webPage.getTag(),recommendValue);
+                Song song = new Song(webPage.getUrl(), webPage.getTitle(), htmlParser.parseSong(webPage.getUrl()),imgUrl,
+                        imgSrcUrl,webPage.getTag(),recommendValue);
                 multiCrawler.saveSong(song);
             }
         }

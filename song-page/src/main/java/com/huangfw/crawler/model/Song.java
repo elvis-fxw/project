@@ -11,6 +11,11 @@ public class Song {
     private String title;
     private Long commentCount;
 
+
+
+    private String imgUrl;
+    private String imgSrcUrl;
+
     private String tag;
 
     double recommendValue;
@@ -46,6 +51,32 @@ public class Song {
         this.commentCount = commentCount;
         this.tag = tag;
         this.recommendValue = recommendValue;
+    }
+
+    public Song(String url, String title, Long commentCount, String imgUrl, String imgSrcUrl, String tag, double recommendValue) {
+        this.url = url;
+        this.title = title;
+        this.commentCount = commentCount;
+        this.imgUrl = imgUrl;
+        this.imgSrcUrl = imgSrcUrl;
+        this.tag = tag;
+        this.recommendValue = recommendValue;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public String getImgSrcUrl() {
+        return imgSrcUrl;
+    }
+
+    public void setImgSrcUrl(String imgSrcUrl) {
+        this.imgSrcUrl = imgSrcUrl;
     }
 
     public double getRecommendValue() {
