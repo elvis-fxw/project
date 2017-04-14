@@ -59,4 +59,20 @@ public class SongController {
         //model.addAttribute("comments",musicCommentRepository.findAllByTitleMatches(message.getInfo(),pageable));
         return "comments";
     }
+
+    @GetMapping({"/recommend", ""})
+    public String recommend(Model model,
+                      @PageableDefault(size = 40, sort = "recommendValue", direction = Sort.Direction.DESC) Pageable pageable) {
+        model.addAttribute("songs", songRepository.findTop50ByRecommendValueGreaterThan(0,pageable));
+        model.addAttribute("message",new Message());
+        return "recommend";
+    }
+
+    @RequestMapping(value="/recommend.do",method= RequestMethod.POST)
+    public String recommendDo(@ModelAttribute(value="message") Message message,Model model,
+                         @PageableDefault(size = 30, sort = "recommendValue", direction = Sort.Direction.DESC) Pageable pageable){
+        System.out.println(message.getInfo());
+        model.addAttribute("songs",songRepository.findTop50ByTagLike("%"+message.getInfo()+"%",pageable));
+        return "recommend";
+    }
 }

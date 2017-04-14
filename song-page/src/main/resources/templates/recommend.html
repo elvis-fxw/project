@@ -23,7 +23,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="https://www.tianmaying.com/tutorial/music-163-crawler">网易云音乐歌曲列表(共<span th:text="${comments.totalElements}"></span>首歌曲)</a>
+            <a class="navbar-brand" href="#">歌曲推荐列表</a>
         </div>
     </div>
 </nav>
@@ -31,7 +31,10 @@
 <div class="container" style="width:800px;margin-top:50px;margin:0px auto">
     <div class="row">
         <div class="col-sm-11">
-
+            <div class="blog-post">
+                <span class="col-sm-8"></span>
+            </div>
+            <h3>热门音乐推荐</h3>
             <!--轮播-->
             <div class="ck-slide">
                 <ul class="ck-slide-wrapper">
@@ -67,6 +70,9 @@
             <!--菜单-->
             <ul class="nav nav-tabs">
                 <li class="active">
+                    <a href="http://localhost:8080/recommend">热门歌曲推荐</a>
+                </li>
+                <li>
                     <a href="http://localhost:8080/comments">热门评论</a>
                 </li>
                 <li>
@@ -77,81 +83,32 @@
                 </li>
             </ul>
 
-            <div class="blog-post">
-                <span class="col-sm-8"></span>
-            </div>
-            <h3>热门音乐评论</h3>
-
             <!--百度分享-->
             <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
             <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"分享自HotMusic","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["weixin","qzone","tsina","evernotecn"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["weixin","qzone","tsina","evernotecn"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th style="text-align: center">歌曲</th>
-                    <th style="text-align: center">热门评论</th>
-                    <th style="text-align: center">点赞数</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="comment: ${comments.content}" style="vertical-align: 50%">
-                    <td style="width:120px;text-align: center">
-                        <a th:href="@{${comment.url}}" target="_blank">
-                            <img id="j-img" class="img-circle" th:src="${comment.imgUrl}"></img>
-                            <span th:text="${comment.title}" ></span>
-                        </a></td>
-                    <td th:text="${comment.content}" style="vertical-align: middle"></td>
-                    <td style="width:80px;vertical-align: middle;text-align: center" th:text="${comment.appreciation}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <form class="form-search" action="#" th:action="@{/recommend.do}" th:object="${message}" method="post">
+                <input class="input-medium search-query" type="text" th:field="*{info}"/> <button type="submit" class="btn">查找</button>
+            </form>
 
-            <!--<div class="container-fluid">
-                <div class="row-fluid">
-                    <div class="span12">
-                        <div class="row-fluid" th:each="comment: ${comments.content}" style="width:200px;margin: 20px">
-                            <div class="span2" style="float: left">
-                                <img alt="100x100" src="http://p3.music.126.net/Zyji-kiWpjLF19CF0yHSlg==/1727332767246198.jpg?param=130y130" class="img-circle" />
-                                <p th:text="${comment.title}"></p>
-                                &lt;!&ndash;<p th:text="${comment.content}"></p>
-                                <p>
-                                    <a class="btn" href="#">查看评论 »</a>
-                                </p>&ndash;&gt;
-                            </div>
-                            <div class="span10" style="float:right">
-                                &lt;!&ndash;<h2 th:text="${comment.title}"></h2>&ndash;&gt;
-                                <p th:text="${comment.content}"></p>
-                                <p>
-                                    <a class="btn" href="#">查看评论 »</a>
-                                </p>
-                            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-3" th:each="song: ${songs.content}">
+                    <div class="img-circle" style="height: 200px">
+                        <a href="http://p4.music.126.net/WLngCFABwRWbhGKBNOlmYw==/3384296791681732.jpg?param=130y130" class="thumbnail">
+                            <img src="http://p4.music.126.net/WLngCFABwRWbhGKBNOlmYw==/3384296791681732.jpg?param=130y130" ></img>
+                        </a>
+                        <div class="caption">
+                            <p th:text="${song.title}" style="vertical-align: middle;text-align: center"></p>
                         </div>
                     </div>
                 </div>
-            </div>-->
-
-            <!--<div class="container">
-                <div class="row" th:each="comment: ${comments.content}">
-                    <div class="span3">
-                        <img alt="140x140" src="http://p3.music.126.net/Zyji-kiWpjLF19CF0yHSlg==/1727332767246198.jpg?param=130y130" class="img-circle" />
-                        <h2 th:text="${comment.title}"></h2>
-                        <p th:text="${comment.content}"></p>
-                        <p>
-                            <a class="btn" href="#">查看更多 »</a>
-                        </p>
-                    </div>
-                    <div class="span9">
-
-                    </div>
-                </div>
-            </div>-->
+            </div>
 
             <hr></hr>
             <nav>
                 <ul class="pager">
-                    <li th:unless="${comments.first}" class="previous"><a th:href="@{'/comments' + '?page=' + ${comments.number - 1}}">上一页<span aria-hidden="true">&larr;</span></a></li>
-                    <li th:unless="${comments.last}" class="next"><a th:href="@{'/comments' + '?page=' + ${comments.number + 1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                    <li th:unless="${songs.first}" class="previous"><a th:href="@{'/songs' + '?page=' + ${songs.number - 1}}">上一页<span aria-hidden="true">&larr;</span></a></li>
+                    <li th:unless="${songs.last}" class="next"><a th:href="@{'/songs' + '?page=' + ${songs.number + 1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
                 </ul>
             </nav>
         </div>
