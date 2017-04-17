@@ -23,7 +23,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand">吉他谱列表(共<span th:text="${gtps.totalElements}"></span>首歌曲)</a>
+            <a class="navbar-brand">吉他谱列表</a>
         </div>
     </div>
 </nav>
@@ -127,8 +127,8 @@
             <hr></hr>
             <nav>
                 <ul class="pager">
-                    <li th:unless="${gtps.first}" class="previous"><a th:href="@{'/songs' + '?page=' + ${gtps.number - 1}}">上一页<span aria-hidden="true">&larr;</span></a></li>
-                    <li th:unless="${gtps.last}" class="next"><a th:href="@{'/songs' + '?page=' + ${gtps.number + 1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                    <li th:unless="${gtps.first}" class="previous"><a th:href="@{'/gtp' + '?page=' + ${gtps.number - 1}}">上一页<span aria-hidden="true">&larr;</span></a></li>
+                    <li th:unless="${gtps.last}" class="next"><a th:href="@{'/gtp' + '?page=' + ${gtps.number + 1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
                 </ul>
             </nav>
         </div>

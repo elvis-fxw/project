@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.huangfw.crawler.utils.Constants.TAG_MAP;
+
 
 @Controller
 public class SongController {
@@ -31,11 +33,6 @@ public class SongController {
     MusicCommentRepository musicCommentRepository;
     @Autowired
     GtpRepository gtpRepository;
-
-    Map<String,String > tagMap = new HashMap<String,String>(){{
-        put("华语","华语");
-        put("流行","流行");
-    }};
 
     @GetMapping({"/songs", ""})
     public String songs(Model model,
@@ -70,9 +67,9 @@ public class SongController {
     @GetMapping({"/recommend", ""})
     public String recommend(Model model,
                       @PageableDefault(size = 40, sort = "recommendValue", direction = Sort.Direction.DESC) Pageable pageable) {
-        model.addAttribute("songs", songRepository.findTop50ByRecommendValueGreaterThan(0,pageable));
+        model.addAttribute("songs", songRepository.findTop48ByRecommendValueGreaterThan(0,pageable));
         model.addAttribute("message",new Message());
-        model.addAttribute("tagMap",tagMap);
+        model.addAttribute("tagMap",TAG_MAP);
         return "recommend";
     }
 
@@ -80,8 +77,8 @@ public class SongController {
     public String recommendDo(@ModelAttribute(value="message") Message message,Model model,
                          @PageableDefault(size = 30, sort = "recommendValue", direction = Sort.Direction.DESC) Pageable pageable){
         System.out.println(message.getInfo());
-        model.addAttribute("songs",songRepository.findTop50ByTagLike("%"+message.getInfo()+"%",pageable));
-        model.addAttribute("tagMap",tagMap);
+        model.addAttribute("songs",songRepository.findTop48ByTagLike("%"+message.getInfo()+"%",pageable));
+        model.addAttribute("tagMap",TAG_MAP);
         return "recommend";
     }
 }

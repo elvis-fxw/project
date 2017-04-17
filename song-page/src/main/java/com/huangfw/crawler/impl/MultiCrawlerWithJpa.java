@@ -19,7 +19,7 @@ import com.huangfw.crawler.model.Song;
 @Component
 public class MultiCrawlerWithJpa implements Crawler {
     
-    public static final Integer MAX_THREADS = 20;
+    public static final Integer MAX_THREADS = 40;//20
     
     @Autowired
     private WebPageRepository webPageRepository;
@@ -32,10 +32,11 @@ public class MultiCrawlerWithJpa implements Crawler {
     
     @Override
     public void initCrawlerList() {
-//        for(int i = 0; i < 43; i++) {
-//            webPageRepository.saveAndFlush(new WebPage("http://music.163.com/discover/playlist/?order=hot&cat=%E5%85%A8%E9%83%A8&limit=35&offset="  + (i * 35), PageType.playlists));
-//        }
-        webPageRepository.saveAndFlush(new WebPage("http://music.163.com/playlist?id=454016843", WebPage.PageType.playlist));
+        final int PAGE_COUNT = 41;//41
+        for(int i = 0; i < PAGE_COUNT; i++) {
+            webPageRepository.saveAndFlush(new WebPage("http://music.163.com/discover/playlist/?order=hot&cat=%E5%85%A8%E9%83%A8&limit=35&offset="  + (i * 35), WebPage.PageType.playlists));
+        }
+        //webPageRepository.saveAndFlush(new WebPage("http://music.163.com/playlist?id=454016843", WebPage.PageType.playlist));
     }
 
     @Override
@@ -45,6 +46,7 @@ public class MultiCrawlerWithJpa implements Crawler {
             return null;
         }
         webPage.setStatus(WebPage.Status.crawled);
+        //System.out.println("开始爬取歌单"+webPage.getTitle());
         return webPageRepository.saveAndFlush(webPage);
     }
     

@@ -119,8 +119,8 @@
             <hr></hr>
             <nav>
                 <ul class="pager">
-                    <li th:unless="${songs.first}" class="previous"><a th:href="@{'/songs' + '?page=' + ${songs.number - 1}}">上一页<span aria-hidden="true">&larr;</span></a></li>
-                    <li th:unless="${songs.last}" class="next"><a th:href="@{'/songs' + '?page=' + ${songs.number + 1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                    <li th:unless="${songs.first}" class="previous"><a th:href="@{'/recommend' + '?page=' + ${songs.number - 1}}">上一页<span aria-hidden="true">&larr;</span></a></li>
+                    <li th:unless="${songs.last}" class="next"><a th:href="@{'/recommend' + '?page=' + ${songs.number + 1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
                 </ul>
             </nav>
         </div>

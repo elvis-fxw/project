@@ -20,6 +20,7 @@ import com.huangfw.crawler.repository.SongRepository;
 import com.huangfw.crawler.utils.Constants;
 import com.huangfw.crawler.model.MusicComment;
 import com.huangfw.crawler.utils.EncryptUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
@@ -73,7 +74,7 @@ public class HtmlParser {
             }
             Elements tags = Jsoup.parse(HTML_FETCHER.fetch(url)).select("a.u-tag i");
             if(tags.size()>=1){
-                tag = tags.get(0).html();
+                tag = StringEscapeUtils.escapeHtml4(tags.get(0).html());
             }
             Elements playCounts = Jsoup.parse(HTML_FETCHER.fetch(url)).select("Strong#play-count.s-fc6");
             playCount = Long.valueOf(playCounts.get(0).html()).longValue();

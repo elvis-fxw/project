@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.huangfw.crawler.model.Song;
 
 public interface SongRepository extends JpaRepository<Song, String> {
-    Page<Song> findTop50ByTagLike(String tag, Pageable page);
+    Page<Song> findTop48ByTagLike(String tag, Pageable page);
 
     /*Page<Song> findTop80(Pageable page);*/
-    Page<Song> findTop50ByRecommendValueGreaterThan(double recommendValue,Pageable page);
+    Page<Song> findTop48ByRecommendValueGreaterThan(double recommendValue,Pageable page);
 }

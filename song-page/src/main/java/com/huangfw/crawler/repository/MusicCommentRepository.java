@@ -18,4 +18,6 @@ public interface MusicCommentRepository extends JpaRepository<MusicComment, Stri
     Page<MusicComment> queryAllByTitleRegex(String title,Pageable var1);
 
     Page<MusicComment> findAllByTitleMatches(String title,Pageable var1);
+
+    Page<MusicComment> findAllByAppreciationGreaterThan(Long value,Pageable var1);
 }
