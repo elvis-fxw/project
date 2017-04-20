@@ -53,6 +53,7 @@ public class SongController {
     public String gtp(Model model,
                           @PageableDefault(size = 52) Pageable pageable) {
         model.addAttribute("gtps", gtpRepository.findAll(pageable));
+        model.addAttribute("message",new Message());
         return "gtp";
     }
 
@@ -80,5 +81,13 @@ public class SongController {
         model.addAttribute("songs",songRepository.findTop48ByTagLike("%"+message.getInfo()+"%",pageable));
         model.addAttribute("tagMap",TAG_MAP);
         return "recommend";
+    }
+
+    @RequestMapping(value="/searchGtp.do",method= RequestMethod.POST)
+    public String searchGtp(@ModelAttribute(value="message") Message message,Model model,
+                         @PageableDefault(size = 52) Pageable pageable){
+        model.addAttribute("gtps",gtpRepository.findAllByTitleLike("%"+message.getInfo()+"%",pageable));
+        //model.addAttribute("comments",musicCommentRepository.findAllByTitleMatches(message.getInfo(),pageable));
+        return "gtp";
     }
 }
